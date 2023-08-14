@@ -7,6 +7,11 @@ learn svelte
 -add new page as Learn page
 -simple data binding and if else statment
 
+14 Aug 2023
+
+-add image
+-reactive declarations
+
 
 # create-svelte
 

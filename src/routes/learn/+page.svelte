@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import { text } from '@sveltejs/kit';
     import type { PageData } from './$types';
     import { tweened } from 'svelte/motion';
@@ -17,9 +18,12 @@
     let second = "Svelte";
     let word = "";
     let checkBoxColorToggle = "red";
+    let posts: any[] = [];
+    let visible = false;
     $: word = first + ' ' + second;
     $: count = textbox1.length * 2;
     $: checkBoxColorToggle = checkbox1 ? 'green' : 'red';
+
 
     const progress = tweened(0, {
         duration: 400,
@@ -29,9 +33,21 @@
     function subscribe(){
         alert('Good Luck! HAHA! Sending email spam to ' + textbox1);
         progress.set(1);
-        document.getElementById("text1").style.display = 'block';
-        
+        visible = true;
+        console.log(visible);
     }
+
+    onMount(async () => {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        posts = await response.json();
+    })
+
+    const handleClick = (id) => {
+        console.log('id: ' +id);
+        posts = posts.filter((post) => post.id != id);
+        console.log(posts);
+    }
+
 </script>
 
 <p>{word}</p>
@@ -60,5 +76,14 @@
 
 <progress style="width: 40%; margin: 20px 0px" value={$progress} />
 
-<p id="text1" style="display: none; font-size:30px;color:red">Thank you for let us collect and sell your data.</p>
+{#if visible}
+    <p id="text1" style="font-size:30px;color:red">Thank you for let us collect and sell your data.</p>
+{/if}
 
+{#each posts as post (post.id)}
+    <h3>{post.id}. {post.title}</h3>
+    <p>{post.body}</p>
+    <button on:click={() =>handleClick(post.id)}>Delete</button>
+{:else}
+    <p>Loading...</p>
+{/each}

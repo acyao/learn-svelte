@@ -1,16 +1,23 @@
 # learn-svelte
 learn svelte 
 
-13 Aug 2023
-
--project structure on demo project
--add new page as Learn page
--simple data binding and if else statment
+26 Aug 2023
+-add progress bar
+-http request from [JSONPlaceholder](https://jsonplaceholder.typicode.com/)
+-inline event handle
+-each blocks to show lists of data
+-fetch data from api and delete item
 
 14 Aug 2023
 
 -add image
 -reactive declarations
+
+13 Aug 2023
+
+-project structure on demo project
+-add new page as Learn page
+-simple data binding and if else statment
 
 
 # create-svelte
